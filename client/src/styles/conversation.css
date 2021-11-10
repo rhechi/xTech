@@ -1,0 +1,64 @@
+
+
+.chatlist__item:hover,
+.chatlist__item.active {
+  background: #fff;
+
+  border-radius: 10px;
+}
+.chatlist__item .userMeta span {
+    margin: 0;
+    padding: 0;
+    color: #ceccd3;
+    font-weight: 400;
+    font-size: 12px;
+    display: block;
+  }
+  .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  
+    margin-right: 20px;
+    position: relative;
+  }
+  .avatar img {
+    max-width: 100%;
+    object-fit: cover;
+  }
+
+  .avatar-img {
+    overflow: hidden;
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+  }
+  .isOnline {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background-color: #ddd;
+    border-radius: 50%;
+    border: 2px solid #fff;
+  }
+  .isOnline.active {
+    background-color: tomato;
+  }
+  .chatlist__item .userMeta p {
+    margin: 0;
+    padding: 0;
+    color: #000;
+    font-weight: 600;
+    font-size: 14px;
+  }
+  .chatlist__item .userMeta span {
+    margin: 0;
+    padding: 0;
+    color: #ceccd3;
+    font-weight: 400;
+    font-size: 12px;
+    display: block;
+  }
