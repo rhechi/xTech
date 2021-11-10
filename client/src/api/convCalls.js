@@ -15,7 +15,13 @@ const getConvs = async (payload) => {
     for(let i =0;i<data.length;i++){
         const convId = data[i]._id;
         const resF = await axios.get(`/users/${data[i].friendId}`)
-        const lastMessage = { conversationId:convId, senderId:"hdsalkd" , text:"check conv calls", seen:"false" }
+        const mostRecentMessage = await axios.get(`/conv/lastMessage/${convId}`,{
+            headers:{
+                auth: `Bearer ${payload.accessToken}`
+            }
+        })
+        const lastMessage = mostRecentMessage.data
+        alert(lastMessage.text)
         const dataF = resF.data
         const conv = {
             friendId: data[i].friendId,

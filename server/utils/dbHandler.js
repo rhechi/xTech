@@ -104,9 +104,17 @@ const getMessages = async (conversationID) => {
         } catch (error) {
             return {error}
         }
+    }
+
+    const getLastMessage= async (convId) => {
+        try {
+            const res = await Message.find({conversationID:convId}).sort({createdAt:-1}).limit(1)
+            if(res){return res}else{ throw "cannot get last message of conversations" }
+        } catch (error) {
+            console.log(error)
+            return {error}
         }
-
-
+    }
 
         const setConv = async (members) => {
             const conv = new Conv( members )
@@ -167,6 +175,7 @@ exports.deleteTokenDB = deleteToken
 exports.addTokenDB = addToken
 exports.setConvDB = setConv
 exports.getConvsDB = getConvs
+exports.getLastMessageDB = getLastMessage
 exports.setMessageDB = setMessage
 exports.getMessagesDB = getMessages
 exports.updateUserDB = updateUser

@@ -2,7 +2,7 @@ const router = require('express').Router()
 const User = require('../models/User')
 const Conv = require('../models/Conv')
 const verify = require('../middleware/verifyToken')
-const { getConvsDB , setConvDB } = require('../utils/dbHandler')
+const { getConvsDB , setConvDB, getLastMessageDB } = require('../utils/dbHandler')
 
 //new conv---------add validation and verify
 router.post("/",async(req,res) =>{
@@ -35,5 +35,19 @@ router.get("/" , verify,async (req,res) =>{
     }
 })
 
+//get last message of a conv
+// router.get("/lastMessage" , verify,async (req,res) =>{
+router.get("/lastMessage/:convId" , async (req,res) =>{
+    console.log("conversation id:" , req.params.convId)
+    // const currentID = req.jwt.id
+    try {
+        //dbCall-------------
+        const lastMessage = await getLastMessageDB(req.params.convId)
+        console.log("response from server", lastMessage)
+        res.status(200).json(lastMessage[0])
+    } catch (err) {
+        res.status(500).json(err)
+    }
+})
 
 module.exports = router;
