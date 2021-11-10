@@ -24,7 +24,7 @@ import { getConvCall } from '../api/apiCalls'
           <p>{convName}</p>
           <span >32 mins ago</span>
         </div>
-        <span className={seen?"seen":"unseen"}>{conv.lastMessage.text}</span>
+        <span className={seen?"seen":"unseen"}>{conv?.lastMessage?.text}</span>
     </div>
       )
   }

@@ -9,17 +9,24 @@ export const SocketMg = () => {
     const dispatch = useDispatch()
     const convs = useSelector(state=>state.conv.current)
     const activeConv = useSelector(state=>state.conv.active)
+    //console.log(activeConv)
     useEffect(()=>{
         socket.on("getMessage",message=>{
-            console.log(message)
-            // convs.forEach((conv, index) => {
-            //     if(conv.convId === message.conversationID) {
-            //         convs[index].lastMessage = message;
-            //     }
-            // })
-            //dispatch(getConvsSuccess(convs))
-            console.log(activeConv)
-            console.log(message.conversationID)
+           // console.log(message)
+           const newConvs = convs.map(c=>(
+                c.convId == message.conversationID ? {
+                    convId: c.convId,
+                    friendId: c.friendId,
+                    firstName: c.firstName,
+                    convImg: c.convImg,
+                    lastName: c.lastName,
+                    lastMessage: message
+                 }:  c
+           ))
+           console.log("newConvs",newConvs)
+            if(newConvs.length == convs.length){dispatch(getConvsSuccess(newConvs))}
+            //console.log(activeConv)
+           // console.log(message.conversationID)
             if(activeConv?.convId == message.conversationID){
                 dispatch(addMessage(message))
             }
@@ -36,7 +43,7 @@ export const SocketMg = () => {
         //         dispatch(seeMessage())
         //     }
         // })
-    },[socket])
+    },[activeConv])
     return (
         <></>
     )

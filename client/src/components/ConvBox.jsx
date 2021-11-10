@@ -39,15 +39,15 @@ function ConvBox() {
         </div>
         <div className="chatlist__items">
             {
-                convs.map(c=>(
+                convs.length>0 ? convs.map(c=>(
                     <div onClick={()=>{
                       dispatch(setCurrentConv(c))
-                      alert(c.convId)
+                      console.log("c",c)
                       // socket.emit("seen", {id:user.id, convId: c.convId,friendId:c.friendId})
                       }}>
                         <Conversation conv={c} />
                     </div>
-                ))
+                )): <></>
             }
             </div>
         </div>
