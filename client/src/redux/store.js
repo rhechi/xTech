@@ -5,6 +5,7 @@ import convReducer from './convSlice'
 import messageReducer from './messageSlice'
 import socketReducer from './socketSlice'
 import contactsReducer from './contactsSlice'
+import searchReducer from './searchUsersSlice'
 
 export default configureStore({
     reducer: {
@@ -13,6 +14,7 @@ export default configureStore({
         conv: convReducer,
         message: messageReducer,
         socket: socketReducer,
-        contacts: contactsReducer
+        contacts: contactsReducer,
+        search: searchReducer,
     }
 })

@@ -1,8 +1,7 @@
 const router = require('express').Router()
 const User = require('../models/User')
 const verify = require('../middleware/verifyToken')
-const { updateUserDB , getByIdDB } = require('../utils/dbHandler')
-
+const { updateUserDB , getByIdDB , searchDB } = require('../utils/dbHandler')
 
 //user operations
 //updateuser-----todo:add verification and satnitazation---maybe split updates---
@@ -10,7 +9,6 @@ router.put("/update",verify, async (req,res) =>{
             if(!req.body.id){
             const currentID = req.jwt.id
             const update = req.body
-            
             if(req.body.password){
                 try {
                     const salt = await bcrypt.genSalt(10)
@@ -20,11 +18,8 @@ router.put("/update",verify, async (req,res) =>{
                 }
             }
             try {
-                //db call-------------------
                 const user = await updateUserDB(currentID,update)
-
                 res.status(200).json("Account updated")
-                
             } catch (err) {
                 console.log(err)
                 res.status(500).json(err)
@@ -47,13 +42,6 @@ router.get("/:id",async(req,res)=>{
     }
 })
 
-
-
-
-
-
-
-
 //delete user
 router.delete("/delete", verify, async(req,res)=>{
     try {
@@ -63,22 +51,28 @@ router.delete("/delete", verify, async(req,res)=>{
         res.status(500).json("server error")
     }
 })
-//add a contact/friend 
-router.put("/add/?username",verify,async(req,res) =>{
-    const currentID = req.user.id
-    res.status(200).json("request sent")
+
+
+router.get("/search/:string",verify,async(req,res) =>{
+    try {
+        const users  = await searchDB(req.params.string)
+        console.log(users)
+        if(!users){res.status(404).json({error: "no users found"})}else{
+            const response = users.map(user=>(
+                {
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    profilePicture: user.profilePicture,
+                    username: user.username,
+                    id: user.id
+                }
+            ))
+            res.status(200).json(response)
+        }
+    } catch (error) {
+        res.status(500).json({error: error})
+        console.log(error)
+    }
 })
-//accept a contact/friend
-router.put("/acceptContact/?username",verify,async (req,res) =>{
-    const currentID = req.user.id
-    res.status(200).json("request sent")
-})
-//remove a contatct/friend
-router.put("/unfriend/?username",verify,async (req,res) =>{
-    const currentID = req.user.id
-    res.status(200).json("request sent")
-})
-//join a room
-//leave a room
 
 module.exports = router

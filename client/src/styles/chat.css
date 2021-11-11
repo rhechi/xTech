@@ -22,7 +22,7 @@
     border: none;
     outline: none;
     cursor: pointer;
-    width: 230px;
+    width: 47px;
     height: 47px;
     line-height: 47px;
     border-radius: 5px;
@@ -37,7 +37,7 @@
     transform: scale(1.02);
   }
   .btn i {
-    flex: 0.2;
+    flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;

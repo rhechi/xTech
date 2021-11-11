@@ -6,23 +6,20 @@ const verify = require('../middleware/verifyToken')
 const { getMessagesDB , setMessageDB } = require('../utils/dbHandler')
 
 //add
-    router.post("/", async (req,res) =>{
-        
+    router.post("/", async (req,res) =>{   
     try {     
-        //dbCall-------------   
         const savedMessage = await setMessageDB(req.body)       
         res.status(200).json(savedMessage)
     } catch (err) {
         res.status(500).json(err)
     }
 })
+
+
 //get
 router.get("/:convID", async(req,res) =>{
     try {
-        //dbcall-----------------
         const messages = await getMessagesDB(req.params.convID)
-       // console.log("sent messages", messages
-        //)
         res.status(200).json(messages)
     } catch (err) {
         res.status(500).json(err)

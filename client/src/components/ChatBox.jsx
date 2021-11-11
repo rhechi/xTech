@@ -20,7 +20,6 @@ function ChatBox() {
     const dispatch = useDispatch()
     useEffect(()=>{
         scrollRef.current?.scrollIntoView({behaviour: "smooth"})
-        console.log("scrolling")
     },[messages])
     useEffect(()=>{
         const getMessages = async (payload) =>{

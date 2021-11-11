@@ -2,6 +2,7 @@ import '../styles/conversation.css'
 import { useSelector , useDispatch } from 'react-redux'
 import { useEffect , useState } from 'react'
 import { getConvCall } from '../api/apiCalls'
+import { format } from 'timeago.js'
 
 
 
@@ -9,7 +10,8 @@ import { getConvCall } from '../api/apiCalls'
     const user = useSelector(state=>state.user.login.info)
     const convName = `${conv.firstName} ${conv.lastName}`
     const convImg = conv.convImg
-    const seen = true;
+    const seen = conv?.lastMessage?.seen;
+    const time = conv?.lastMessage?.createdAt
   
     
       return (
@@ -22,7 +24,7 @@ import { getConvCall } from '../api/apiCalls'
       </div>
       <div className="userMeta">
           <p>{convName}</p>
-          <span >32 mins ago</span>
+          <span >{format(time)}</span>
         </div>
         <span className={seen?"seen":"unseen"}>{conv?.lastMessage?.text}</span>
     </div>

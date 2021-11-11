@@ -69,7 +69,7 @@ router.post('/register', async (req,res) =>{
         if(user.error){throw user.error}
          res.status(200).json(user) 
     } catch (error) {
-        console.log(err)
+        //console.log(err)
         res.status(500).json({error}) 
     }
 
@@ -100,18 +100,10 @@ router.post("/login", async (req,res) =>{
      res.status(500).json(err) 
     }          
     })
-    //jwt test
 
-
-
-    
-    router.get('/',verify,(req,res)=>{
-        const id = req.jwt.id
-        res.status(200).json(id)
-    })
 
     //logout------------------------------------------!important
-    router.post("/logout",async (req,res) =>{
+    router.post("/logout",verify,async (req,res) =>{
         const refreshToken = req.body.refreshToken
         await deleteTokenDB(refreshToken)
         res.status(200).json("you're logged out ")

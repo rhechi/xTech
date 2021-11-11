@@ -2,7 +2,7 @@
 const jwt = require("jsonwebtoken")
 
 const verify = (req,res,next) =>{
-    // console.log("source: verifyMiddleware",req.headers.auth)
+    // console.log("source: verifyMiddleware",req.body)
     if(req.headers.auth){
         const token = req.headers.auth.split(" ")[1];
         jwt.verify(token,process.env.JWT_SECRET, (err,payload) =>{

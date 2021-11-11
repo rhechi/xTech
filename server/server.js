@@ -11,7 +11,6 @@ const contactsRoute = require('./routes/contacts')
 const testRoute = require('./routes/test')
 const { connectDB } = require('./utils/dbHandler')
 const socket = require('./socket/socket')
-console.log(socket)
 
 dotenv.config({path: './config/config.env'})
 const PORT = process.env.PORT || 3000

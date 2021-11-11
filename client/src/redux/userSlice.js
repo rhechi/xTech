@@ -4,16 +4,14 @@ export const userSlice = createSlice({
     name : 'user',
     initialState: {
         login:{
-            info:null,
-            /*{
-                id: null,
-                accessToken: null,
-                refreshToken: null,
-                error: null
-                
-            },*/
+            info: {
+                id: window.localStorage.userId,
+                accessToken: window.localStorage.accessToken,
+                refreshToken: window.localStorage.refreshToken,
+            },
+        
             loading: false,
-
+            error: false
         }
     },
     reducers: {
@@ -26,11 +24,14 @@ export const userSlice = createSlice({
             state.login.loading = false
         },
         loginFail: (state, action) =>{
-            state.login.info.error = action.payload.error
+            state.login.error = action.payload.error
             state.login.loading = false
-        }
+        },
+        logout: (state) =>{
+            state.login.info = null
+        },
     }
 })
 
-export const { loginStart , loginSuccess , loginFail } = userSlice.actions
+export const { loginStart , loginSuccess , loginFail, logout } = userSlice.actions
 export default userSlice.reducer

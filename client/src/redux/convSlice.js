@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-
+import {compareConv} from '../utils'
 export const convSlice = createSlice({
     name:'conv',
     initialState:{
@@ -14,7 +14,7 @@ export const convSlice = createSlice({
         },
         getConvsSuccess: (state,action) =>{
         state.loading = false
-        state.current = action.payload
+        state.current = action.payload.sort()
         },
         getConvsFail: (state,action)=>{
             state.current.error = action.payload.error

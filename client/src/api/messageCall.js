@@ -1,6 +1,5 @@
 import axios from 'axios'
 import { getMessagesStart , getMessagesSuccess , getMessagesFail , addMessage } from '../redux/messageSlice'
-import socket from '../socket'
 
 export const getMessagesCall = async (payload,dispatch) =>{
     dispatch(getMessagesStart())
@@ -16,13 +15,14 @@ export const getMessagesCall = async (payload,dispatch) =>{
     }
 }
 
-export const sendMessageCall = async (payload,dispatch) =>{
+export const sendMessageCall = async (payload,socket,dispatch) =>{
     const message = payload.message
     try {
         const res = await axios.post("/message",message);
         socket.emit("sendMessage",{
             message,
-            recieverId: payload.friendId
+            recieverId: payload.friendId,
+            createdAt: Date.now()
         })
         dispatch(addMessage(message))
     } catch (error) {

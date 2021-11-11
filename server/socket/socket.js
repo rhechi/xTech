@@ -20,7 +20,6 @@ const getUser = (userId) =>{
 
 
 io.on('connection', (socket) => {
-    
     socket.on("init", async id =>{
         console.log("init")
         const res = await addSocket({socketId: socket.id,userId: id})
@@ -35,7 +34,10 @@ io.on('connection', (socket) => {
     })
     //send and get msg
     socket.on("sendMessage", async ({message,recieverId}) =>{
+        console.log("sending message")
         const recieverSockets = await getSockets(recieverId)
+        console.log("reciever sockets", recieverSockets)
+        if(recieverSockets.length == 0){console.log("no sockets to send to")}
         if(recieverSockets && !recieverSockets.error && recieverSockets.length > 0){
             recieverSockets.forEach(s=>{
                 console.log("sending message to socket")

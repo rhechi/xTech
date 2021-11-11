@@ -6,7 +6,8 @@ import { useRef } from 'react'
 
 function Login() {
     const error = useSelector(state=>state.user.login.info?.error)
-    const id = useSelector(state=>state.user.login.info?.id)
+    const user = useSelector(state=>state.user.login.info?.id)
+    const socket = useSelector(state=>state.socket.current)
    // console.log("init id",id)
     const loading = useSelector(state=>state.user.login.loading)
     //console.log("init, loading",loading)
@@ -19,10 +20,10 @@ function Login() {
         e.preventDefault()
         const creds = {email: email.current.value, password:password.current.value}
        // console.log(loginCall)
-        await loginCall(creds, dispatch)
+       const user =  await loginCall(creds, dispatch)
+       socket.emit("init", user.id)
     }
-   // if(id){console.log("id",id)}
-    //if(loading){console.log("loading",loading)}
+   
     if(error){console.log("error: ",error)}
     return (
         <div className="login">

@@ -1,11 +1,15 @@
 import { useState } from 'react'
 import { useSelector , useDispatch } from 'react-redux'
 import { sendMessageCall } from '../api/messageCall'
+import { getConvsSuccess } from '../redux/convSlice'
 import { userSlice } from '../redux/userSlice'
+import { compareConv } from '../utils'
 
 function ChatFrom() {
     const dispatch = useDispatch()
+    const socket = useSelector(state=>state.socket.current)
     const user = useSelector(state=>state.user.login.info)
+    const convs = useSelector(state=>state.conv.current)
     const currentChat = useSelector(state=>state.conv.active)
     const [newMessage,setNewMessage] = useState("")
     const onChange =  (e) =>{
@@ -23,18 +27,24 @@ function ChatFrom() {
             sender: user?.id,
             text: newMessage
             }
-            console.log(currentChat)
-            await sendMessageCall({user,message,friendId:currentChat.friendId},dispatch)
+              const newConvs = convs.map(c=>(
+                c.convId == message.conversationID ? {
+                    convId: c.convId,
+                    friendId: c.friendId,
+                    firstName: c.firstName,
+                    convImg: c.convImg,
+                    lastName: c.lastName,
+                    lastMessage: message
+                 }:  c
+           ))
+           if(newConvs.length == convs.length){dispatch(getConvsSuccess(newConvs.sort(compareConv)))}
+            await sendMessageCall({user,message,friendId:currentChat.friendId},socket,dispatch)
             setNewMessage("")
-
         }
     }
-
     return (
          <div>
-
         { currentChat?
-
             <div className="content__footer">
           <div className="sendNewMessage">
             <button className="addFiles">
@@ -53,16 +63,7 @@ function ChatFrom() {
 
             </form>
           </div>
-        </div>
-
-
-// asdad----------------------------------------------------------------------------------------
-
-            // <form className="chatBoxBottom" onSubmit={onSubmit}>
-            // <input onChange={onChange} value={newMessage} type="text" className="chatMessageInput" placeholder="write text here"/>
-            // <button className="chatSubmitButton" type="submit">Send</button>
-            // </form>
-        
+        </div>       
     : <></>}
     
     </div>

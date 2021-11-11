@@ -4,13 +4,20 @@ import { useSelector , useDispatch} from 'react-redux'
 import { useEffect } from 'react'
 import Conversation from "./Conversation"
 import { getAllConvsCall } from '../api/convCalls'
+import { logoutCall } from '../api/authCalls'
 import { setCurrentConv } from '../redux/convSlice'
-import socket from '../socket'
+
 
 function ConvBox() {
     const dispatch = useDispatch()
+    const socket= useSelector(state=>state.socket.current)
     const user = useSelector(state=>state.user.login.info)
     const convs = useSelector(state=>state.conv.current)
+    const onClick = () =>{
+      socket.disconnect()
+      logoutCall(user , dispatch)
+      
+    }
     useEffect(()=>{
         const getConvs = async() =>{
             await getAllConvsCall(user, dispatch)
@@ -19,9 +26,9 @@ function ConvBox() {
     },[])   
     return (
         <div  className="main__chatlist">
-           <button className="btn">
-          <i className="fa fa-plus"></i>
-          <span>New conversation</span>
+           <button className="btn" onClick={onClick}>
+          <i className="fa fa-sign-out-alt"></i>
+          
         </button>
         <div className="chatlist__heading">
           <h2>Chats</h2>

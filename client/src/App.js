@@ -3,7 +3,7 @@ import './styles/app.css'
 import Login from './components/Login'
 import Register from './components/Register'
 import Chat from './pages/Chat'
-
+//import { io } from "socket.io-client"
 import { useSelector , useDispatch} from 'react-redux'
 import { setSocket } from './redux/socketSlice';
 import {
@@ -21,12 +21,11 @@ function App() {
   const user = useSelector(state=>state.user.login.info?.id)
   const currentConv = useSelector(state=>state.conv.active)
   const dispatch = useDispatch()
-  useEffect(()=>{
-    if(user){
-      socket.emit("init", user)
-    }
-  },[user])
-  console.log(user)
+      
+   
+     
+    
+  
   return (
      
     <Router>

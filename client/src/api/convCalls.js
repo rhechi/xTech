@@ -21,7 +21,6 @@ const getConvs = async (payload) => {
             }
         })
         const lastMessage = mostRecentMessage.data
-        alert(lastMessage.text)
         const dataF = resF.data
         const conv = {
             friendId: data[i].friendId,

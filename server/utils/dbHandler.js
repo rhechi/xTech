@@ -69,16 +69,16 @@ const getMessages = async (conversationID) => {
         return {error}
     }
     }
-    const getUnseenMessages = async(senderId,convId) =>{
-        try {
-            const res = await Message.find({conversationID: convId,
-                sender:senderId, 
-                seen:false})
-                return res
-        } catch (error) {
-            return {error}
+        const getUnseenMessages = async(senderId,convId) =>{
+            try {
+                const res = await Message.find({conversationID: convId,
+                    sender:senderId, 
+                    seen:false})
+                    return res
+            } catch (error) {
+                return {error}
+            }
         }
-    }
     const setMessage = async (message) => {
         const msg = new Message(message)
         try {
@@ -150,13 +150,23 @@ const getMessages = async (conversationID) => {
                     const getToken = async (token) => {
                         try {
                             const res = await Token.findOne({token})
-                            if(res){return true}else{return null}
+                            if(res){return true}else{throw "none"}
                             } catch (error) {
                             return{error}
                         }
                         }
-               
-/*
+    const search = async(string)=>{
+        try {
+            const res = await User.find({firstName: string})
+            return res
+        } catch (error) {
+            return {error}
+        }
+
+    }           
+
+
+                        /*
 const name = async () => {
     try {
         const res = await 
@@ -167,7 +177,7 @@ const name = async () => {
     }
     }
 */
-
+exports.searchDB = search
 exports.getUnseenMessagesDB = getUnseenMessages
 exports.seeMessageDB = seeMessage
 exports.getTokenDB = getToken

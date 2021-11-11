@@ -7,12 +7,20 @@ import { seeMessage , addMessage } from '../redux/messageSlice'
 export const SocketMg = () => {
     const socket = useSelector(state=>state.socket.current)
     const dispatch = useDispatch()
+    const user = useSelector(state=>state.user.login.info)
     const convs = useSelector(state=>state.conv.current)
     const activeConv = useSelector(state=>state.conv.active)
     //console.log(activeConv)
     useEffect(()=>{
+        if(user){
+          console.log("initializing socket")
+          socket.emit("init", user.id)
+        }
+
+      },[user])
+    useEffect(()=>{
         socket.on("getMessage",message=>{
-           // console.log(message)
+            console.log(convs)
            const newConvs = convs.map(c=>(
                 c.convId == message.conversationID ? {
                     convId: c.convId,
