@@ -21,7 +21,14 @@ const getUser = (userId) =>{
 
 io.on('connection', (socket) => {
     socket.on("init", async id =>{
-        console.log("init")
+        const cSockets = await getSockets(id)
+        if(cSockets.length > 0 && socket){
+            console.log(cSockets)
+            if(cSockets.filter(s=>s.socketId == socket.id).length > 0){
+                const res = await addSocket({socketId: socket.id,userId: id})
+                res.error && console.log(res.error)
+            }
+        }
         const res = await addSocket({socketId: socket.id,userId: id})
         res.error && console.log(res.error)
         

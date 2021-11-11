@@ -6,11 +6,11 @@ import Conversation from "./Conversation"
 import { getAllConvsCall } from '../api/convCalls'
 import { logoutCall } from '../api/authCalls'
 import { setCurrentConv } from '../redux/convSlice'
+import{ socket } from '../socket'
 
 
 function ConvBox() {
     const dispatch = useDispatch()
-    const socket= useSelector(state=>state.socket.current)
     const user = useSelector(state=>state.user.login.info)
     const convs = useSelector(state=>state.conv.current)
     const onClick = () =>{

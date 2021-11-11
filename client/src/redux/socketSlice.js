@@ -4,12 +4,10 @@ import { io } from "socket.io-client"
 export const socketSlice = createSlice({
     name: 'socket',
     initialState:{
-        current: io("ws://localhost:8000")
+        current: null
     },
     reducers:{
-        setSocket : (state,action) =>{
-            state.current = io(`${action.payload}`);
-        }
+      
     }
 })
 

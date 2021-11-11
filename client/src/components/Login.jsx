@@ -2,12 +2,13 @@ import '../styles/login.css'
 import { useSelector , useDispatch } from 'react-redux'
 import { loginCall } from '../api/authCalls'
 import { useRef } from 'react'
+import { socket } from '../socket'
 
 
 function Login() {
     const error = useSelector(state=>state.user.login.info?.error)
     const user = useSelector(state=>state.user.login.info?.id)
-    const socket = useSelector(state=>state.socket.current)
+    
    // console.log("init id",id)
     const loading = useSelector(state=>state.user.login.loading)
     //console.log("init, loading",loading)
@@ -21,7 +22,7 @@ function Login() {
         const creds = {email: email.current.value, password:password.current.value}
        // console.log(loginCall)
        const user =  await loginCall(creds, dispatch)
-       socket.emit("init", user.id)
+    //    socket.emit("init", user.id)
     }
    
     if(error){console.log("error: ",error)}

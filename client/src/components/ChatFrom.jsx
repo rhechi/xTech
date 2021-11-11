@@ -1,13 +1,12 @@
 import { useState } from 'react'
 import { useSelector , useDispatch } from 'react-redux'
 import { sendMessageCall } from '../api/messageCall'
-import { getConvsSuccess } from '../redux/convSlice'
+import { updateConv } from '../redux/convSlice'
 import { userSlice } from '../redux/userSlice'
 import { compareConv } from '../utils'
 
 function ChatFrom() {
     const dispatch = useDispatch()
-    const socket = useSelector(state=>state.socket.current)
     const user = useSelector(state=>state.user.login.info)
     const convs = useSelector(state=>state.conv.current)
     const currentChat = useSelector(state=>state.conv.active)
@@ -27,18 +26,9 @@ function ChatFrom() {
             sender: user?.id,
             text: newMessage
             }
-              const newConvs = convs.map(c=>(
-                c.convId == message.conversationID ? {
-                    convId: c.convId,
-                    friendId: c.friendId,
-                    firstName: c.firstName,
-                    convImg: c.convImg,
-                    lastName: c.lastName,
-                    lastMessage: message
-                 }:  c
-           ))
-           if(newConvs.length == convs.length){dispatch(getConvsSuccess(newConvs.sort(compareConv)))}
-            await sendMessageCall({user,message,friendId:currentChat.friendId},socket,dispatch)
+            
+             dispatch(updateConv(message))
+            await sendMessageCall({user,message,friendId:currentChat.friendId},dispatch)
             setNewMessage("")
         }
     }

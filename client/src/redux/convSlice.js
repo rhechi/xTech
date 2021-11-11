@@ -19,13 +19,22 @@ export const convSlice = createSlice({
         getConvsFail: (state,action)=>{
             state.current.error = action.payload.error
         },
-        addConv : (state,action)=>{
-            state.current.convs = [...state.current.convs,action.payload]
+        updateConv : (state,action)=>{
+            const convToUpdate = state.current.filter(e=>e.convId == action.payload.conversationID)[0]
+            const upConv = {
+                convId: convToUpdate.convId,
+                friendId: convToUpdate.friendId,
+                firstName: convToUpdate.firstName,
+                convImg: convToUpdate.convImg,
+                lastName: convToUpdate.lastName,
+                lastMessage: action.payload
+            }
+            state.current = [...state.current.filter(e=>e.convId !== action.payload.conversationID),upConv]
         },
         setCurrentConv: (state,action) =>{
             state.active = action.payload
         }
     }
 })
-export const { getConvsStart , getConvsSuccess , getConvsFail , addConv ,setCurrentConv} = convSlice.actions
+export const { getConvsStart , getConvsSuccess , getConvsFail , updateConv ,setCurrentConv} = convSlice.actions
 export default convSlice.reducer

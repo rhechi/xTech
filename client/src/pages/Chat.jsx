@@ -11,14 +11,13 @@ function Chat() {
     
     return (
         <div className="__main">
-            <SocketMg />
+            
             <div className="main__chatbody">
                 <ConvBox/>
                 <ChatBox />
                 <SideBar />
-       
-
         </div>
+        <SocketMg />
         </div>
     )
 }
