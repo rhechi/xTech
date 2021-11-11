@@ -157,8 +157,10 @@ const getMessages = async (conversationID) => {
                         }
     const search = async(string)=>{
         try {
-            const res = await User.find({firstName: string})
-            return res
+            string = string.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+        const regex = new RegExp(`^${string}.*$`, 'i');
+        const res = await User.find({firstName: regex})
+        return res
         } catch (error) {
             return {error}
         }

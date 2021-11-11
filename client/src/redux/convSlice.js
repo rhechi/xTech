@@ -14,7 +14,7 @@ export const convSlice = createSlice({
         },
         getConvsSuccess: (state,action) =>{
         state.loading = false
-        state.current = action.payload.sort()
+        state.current = action.payload.sort(compareConv)
         },
         getConvsFail: (state,action)=>{
             state.current.error = action.payload.error
@@ -29,7 +29,7 @@ export const convSlice = createSlice({
                 lastName: convToUpdate.lastName,
                 lastMessage: action.payload
             }
-            state.current = [...state.current.filter(e=>e.convId !== action.payload.conversationID),upConv]
+            state.current = [upConv,...state.current.filter(e=>e.convId !== action.payload.conversationID)]
         },
         setCurrentConv: (state,action) =>{
             state.active = action.payload
