@@ -2,6 +2,7 @@ import '../styles/register.css'
 import { useSelector , useDispatch } from 'react-redux'
 import { registerCall } from '../api/authCalls'
 import { useRef } from 'react'
+import { Link } from 'react-router-dom'
 
 function Register() {
     const loading = useSelector(state=>state.register.loading)
@@ -41,8 +42,9 @@ function Register() {
                         <input type="password" className="loginInput" placeholder="Password Again" ref={passwordAgain} required/>
                         <button type="submit" className="loginButton">{loading?"loading":"Sign Up"}</button>
                         <span className="loginForgot">Have an account already?</span>
+                        <Link to="/login">
                         <button className="loginRegisterButton">Log into Account</button>
-                        
+                        </Link>
                     </form>
                 </div>
            

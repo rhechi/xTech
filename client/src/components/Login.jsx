@@ -2,6 +2,7 @@ import '../styles/login.css'
 import { useSelector , useDispatch } from 'react-redux'
 import { loginCall } from '../api/authCalls'
 import { useRef } from 'react'
+import { Link } from 'react-router-dom'
 import { socket } from '../socket'
 
 
@@ -42,8 +43,9 @@ function Login() {
                  />
                 <button type="submit" className="loginButton" disabled={loading}>{loading?"loading": "Log In"}</button>
                 <span className="loginForgot">Forgot Password?</span>
+                <Link to="/register">
                 <button className="loginRegisterButton" disabled={loading}>{loading?"loading":"Create a New Account"}</button>
-                    
+                  </Link>  
                 </form>
             
         
