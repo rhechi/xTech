@@ -49,13 +49,22 @@ export const getAllConvsCall = async (payload,dispatch) =>{
 
 //testing prototype
 export const addConversation = async (payload,dispatch) =>{
+    const user = payload.user
     const convs = payload.convs
     const senderId = payload.senderId
-    const recieverId = payload.recieverId
+    const recieverId = payload.user.id
     if(convs.filter(c=>c.friendId == recieverId)){
         try {
             const res = await axios.post("/conv",{senderId,recieverId})
-            dispatch(addConv(res.data))
+            const newConv = {
+                convId: res.id,
+                friendId: recieverId,
+                firstName: user.firstName,
+                convImg: user.profilePicture,
+                lastName: user.lastName,
+                lastMessage: {text:"new new"} 
+            }
+            dispatch(addConv(newConv))
         } catch (error) {
             console.log(error)
         }

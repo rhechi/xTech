@@ -17,14 +17,14 @@ const SideBar = () => {
     //console.log(users)
     return (
         <div>
-             <div className="chatList__search">
-          <div className="search_wrap">
+             
+          <div className="searchContainer">
             <input type="text" placeholder="search for people" onChange={onChange} required />
             <button className="search-btn">
               <i className="fa fa-search"></i>
             </button>
           </div>
-        </div>
+        
         
            { loading?<span>loading</span> : length<1? <span>No users</span>: users.map(user=>(
             <SideItem key={user.id} user={user} />

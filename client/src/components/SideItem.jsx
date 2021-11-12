@@ -6,11 +6,11 @@ export const SideItem = ({user}) => {
     const me = useSelector(state => state.user.login.info?.id)
     const convs = useSelector(state=>state.conv.current)
     const onClick = async() =>{
-        await addConversation({convs,senderId: me,recieverId: user.id},dispatch)
+        await addConversation({convs,senderId: me,user},dispatch)
     }
     return (
         
-        <div className="chatlist__item">
+        <div className="conversation">
         <div className="avatar">
         <div className="avatar-img">
         <img src={user.profilePicture} alt="" />
