@@ -53,7 +53,7 @@ export const addConversation = async (payload,dispatch) =>{
     const convs = payload.convs
     const senderId = payload.senderId
     const recieverId = payload.user.id
-    if(convs.filter(c=>c.friendId == recieverId)){
+    if(convs.filter(c=>c.friendId == recieverId).length == 0){
         try {
             const res = await axios.post("/conv",{senderId,recieverId})
             const newConv = {
