@@ -25,34 +25,31 @@ function ConvBox() {
         getConvs()
     },[])   
     return (
-        <div  className="main__chatlist">
+        <div  className="convBox">
            <button className="btn" onClick={onClick}>
-          <i className="fa fa-sign-out-alt"></i>
-          
-        </button>
-        <div className="chatlist__heading">
+          <i className="fa fa-sign-out-alt"></i> 
+            </button>
+        <div className="convHeader">
           <h2>Chats</h2>
           <button className="btn-nobg">
             <i className="fa fa-ellipsis-h"></i>
           </button>
         </div>
-        <div className="chatList__search">
-          <div className="search_wrap">
+          <div className="searchContainer">
             <input type="text" placeholder="Search Here" required />
             <button className="search-btn">
               <i className="fa fa-search"></i>
             </button>
           </div>
-        </div>
-        <div className="chatlist__items">
+        <div className="conversationsContainer">
             {
                 convs.length>0 ? convs.map(c=>(
-                    <div onClick={()=>{
+                    <div key={c.convId} onClick={()=>{
                       dispatch(setCurrentConv(c))
-                      console.log("c",c)
+                      
                       // socket.emit("seen", {id:user.id, convId: c.convId,friendId:c.friendId})
-                      }}>
-                        <Conversation conv={c} />
+                      }}> 
+                        <Conversation  conv={c} />
                     </div>
                 )): <></>
             }

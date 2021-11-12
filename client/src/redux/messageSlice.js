@@ -24,7 +24,6 @@ export const messageSlice = createSlice({
             state.current.error = action.payload.error
         },
         addMessage : (state,action)=>{
-            console.log("action.payload", action.payload)
             state.current.messages = [...state.current.messages,action.payload]
         },
         seeMessage : (state) =>{

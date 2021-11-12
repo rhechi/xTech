@@ -3,7 +3,6 @@ import userReducer from "./userSlice";
 import registerReducer from "./registerSlice";
 import convReducer from './convSlice'
 import messageReducer from './messageSlice'
-import socketReducer from './socketSlice'
 import contactsReducer from './contactsSlice'
 import searchReducer from './searchUsersSlice'
 
@@ -13,7 +12,6 @@ export default configureStore({
         register: registerReducer,
         conv: convReducer,
         message: messageReducer,
-        socket: socketReducer,
         contacts: contactsReducer,
         search: searchReducer,
     }

@@ -3,26 +3,19 @@ import { createSlice } from '@reduxjs/toolkit'
 export const registerSlice = createSlice({
     name : 'register',
     initialState: {
-        current:{
-            success: false,
-            firstName: null,
-            email: null,
-            error: null
-            
-        },
+        success: false,
         loading: false,
     },
     reducers: {
         registerStart: (state) => {
             state.loading = true
         },
-        registerSuccess: (state, action)=>{
-            //console.log("action.payload: " ,action.payload)
-            state.current = action.payload
+        registerSuccess: (state,action)=>{
+            state.success = action.payload
             state.loading = false
         },
-        registerFail: (state, action) =>{
-            state.current.error = action.payload.error
+        registerFail: (state) =>{
+            state.success =  false
             state.loading = false
         }
     }

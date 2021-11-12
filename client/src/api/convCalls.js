@@ -1,9 +1,8 @@
 import axios from 'axios'
-import { getConvsStart , getConvsSuccess , getConvsFail , addConv ,setCurrentConv} from '../redux/convSlice'
-
-
+import { getConvsStart , getConvsSuccess , getConvsFail} from '../redux/convSlice'
 
 const getConvs = async (payload) => {
+    try {
     const res = await axios.get('/conv/',{
         headers:{
             auth: `Bearer ${payload.accessToken}`
@@ -32,17 +31,19 @@ const getConvs = async (payload) => {
         }  
         convs.push(conv)
     }
-    return convs
+    return convs} catch (error) {
+        return {error}
+    }
 }
-
 export const getAllConvsCall = async (payload,dispatch) =>{
     dispatch(getConvsStart())
     try {
         const convs = await getConvs(payload)
+        if(convs.error){throw convs.error}
         dispatch(getConvsSuccess(convs))
     } catch (error) {
         console.log(error)
-       // dispatch(getConvsFail({error}))
+       dispatch(getConvsFail({error}))
     }
 }
 

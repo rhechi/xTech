@@ -12,7 +12,7 @@ const { json } = require('express')
 const accessTokenGen = (user) => {
     return  accessToken = jwt.sign({ id: user.id},
         process.env.JWT_SECRET,
-        { expiresIn:  "10m"}
+        // { expiresIn:  "20m"}
         )
 }
 const refreshTokenGen = (user) => {
@@ -24,7 +24,7 @@ const refreshTokenGen = (user) => {
 
 //refresh token 
 router.post('/refresh', async (req,res)=>{
-    
+    try{
     const refreshToken = req.body.refreshToken
     if(!refreshToken) return res.status(401).json("no auth for you my man")
     const isToken = await getTokenDB(refreshToken)
@@ -44,7 +44,9 @@ router.post('/refresh', async (req,res)=>{
         )
     } )
 
-   
+}catch(error){
+    console.log(error)
+}
 })
 
 
@@ -52,7 +54,7 @@ router.post('/refresh', async (req,res)=>{
 
 //Register User
 router.post('/register', async (req,res) =>{
-  
+  console.log(req.body.username)
     try {
         
         const salt = await bcrypt.genSalt(10)
@@ -63,13 +65,13 @@ router.post('/register', async (req,res) =>{
             lastName: req.body.lastName,
             email: req.body.email,
             password: hash,
-            profilePicture: `https://api.multiavatar.com/${username}.svg`
+            profilePicture: `https://api.multiavatar.com/${req.body.username}.svg`
         }
         const user = await registerDB(newUser)
-        if(user.error){throw user.error}
+        if(user.error){throw "db error"}
          res.status(200).json(user) 
     } catch (error) {
-        //console.log(err)
+        console.log(error)
         res.status(500).json({error}) 
     }
 

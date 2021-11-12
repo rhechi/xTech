@@ -1,11 +1,46 @@
-.chatBoxBottom{
-    margin-top: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.footer {
+  align-self: flex-end;
+  padding-top: 30px;
 }
-.chatMessageInput{
-    width:80%;
-    height: 90px;
-    padding: 10px
+.messageForm {
+  background-color: #fff;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-radius: 8px;
+}
+.messageForm button {
+  width: 36px;
+  height: 36px;
+  background-color: #ecefff;
+  border: none;
+  box-shadow: none;
+  outline: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: #4665ff;
+  padding: 0;
+  border-radius: 5px;
+  line-height: 36px;
+  transition: all 0.3s cubic-bezier(0.88, 0.19, 0.37, 1.11);
+}
+.messageForm button:hover {
+  transform: scale(1.2);
+}
+.messageForm button i {
+  display: block;
+}
+.messageForm input {
+  width: calc(100% - 40px);
+  padding: 0 15px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+.messageForm form{
+  width: 100%
+}
+#sendMsgBtn {
+  background-color: #3b5bfe;
+  color: #fff;
 }

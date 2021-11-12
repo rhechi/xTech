@@ -20,7 +20,7 @@ export const convSlice = createSlice({
             state.current.error = action.payload.error
         },
         updateConv : (state,action)=>{
-            const convToUpdate = state.current.filter(e=>e.convId == action.payload.conversationID)[0]
+            const convToUpdate = state.current.filter(e=>e.convId === action.payload.conversationID)[0]
             const upConv = {
                 convId: convToUpdate.convId,
                 friendId: convToUpdate.friendId,

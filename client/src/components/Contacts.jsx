@@ -9,7 +9,7 @@ function Contacts() {
     const dispatch = useDispatch()
     const contacts = useSelector(state=>state.contacts.current)
     const loading = useSelector(state=>state.contacts.loading)
-    const error = useSelector(state=>state.contacts.error)
+    //const error = useSelector(state=>state.contacts.error)
     useEffect(()=>{
         const getContacts = async()=>{
             await getContactsCall(user,dispatch)
@@ -18,11 +18,12 @@ function Contacts() {
     console.log(contacts)
     return (
         <div>
-            { contacts == []? <span>No contacts</span> : <div>
+            
+            { loading? <span>loading</span>: contacts == []? <span>No contacts</span> : <div>
                { contacts.map(c=>(
                    <Contact contact={c}/>
                ))}
-            </div> }
+            </div> } 
 
         </div>
     )

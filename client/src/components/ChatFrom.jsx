@@ -1,14 +1,13 @@
+import '../styles/chatForm.css'
 import { useState } from 'react'
 import { useSelector , useDispatch } from 'react-redux'
 import { sendMessageCall } from '../api/messageCall'
 import { updateConv } from '../redux/convSlice'
-import { userSlice } from '../redux/userSlice'
-import { compareConv } from '../utils'
+
 
 function ChatFrom() {
     const dispatch = useDispatch()
     const user = useSelector(state=>state.user.login.info)
-    const convs = useSelector(state=>state.conv.current)
     const currentChat = useSelector(state=>state.conv.active)
     const [newMessage,setNewMessage] = useState("")
     const onChange =  (e) =>{
@@ -35,9 +34,9 @@ function ChatFrom() {
     return (
          <div>
         { currentChat?
-            <div className="content__footer">
-          <div className="sendNewMessage">
-            <button className="addFiles">
+            <div className="footer">
+          <div className="messageForm">
+            <button >
               <i className="fa fa-plus"></i>
             </button>
             <form onSubmit={onSubmit}>
@@ -47,7 +46,7 @@ function ChatFrom() {
               onChange={onChange}
               value={newMessage}
             />
-            <button className="btnSendMsg" id="sendMsgBtn">
+            <button className="sendMsgBtn" id="sendMsgBtn">
               <i className="fa fa-paper-plane"></i>
             </button>
 

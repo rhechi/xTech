@@ -1,10 +1,8 @@
-import  { useEffect }from 'react';
 import './styles/app.css'
 import Login from './components/Login'
 import Register from './components/Register'
 import Chat from './pages/Chat'
-//import { io } from "socket.io-client"
-import { useSelector , useDispatch} from 'react-redux'
+import { useSelector } from 'react-redux'
 
 import {
   BrowserRouter as Router,
@@ -18,10 +16,18 @@ import {
 
 function App() {
   const user = useSelector(state=>state.user.login.info?.id)
-  const currentConv = useSelector(state=>state.conv.active)
-  const dispatch = useDispatch()
-      
-   
+  const reg = useSelector(state=>state.register.success)
+  // axios.interceptors.request.use(async (config) =>{
+  //   if(user){
+  //     let time = new Date()
+  //     const decodedToken = jwt_decode(user.accessToken)
+  //     if(decodedToken.exp *1000 < time.getTime()){
+  //       await refresh(user,dispatch)
+  //     }
+
+  //   }
+
+  // })
      
     
   
@@ -32,7 +38,7 @@ function App() {
     <Route exact path="/">{!user ? <Redirect to="/login" /> : <Chat />}</Route>
       <Route path="/login">{user ? <Redirect to="/" /> : <Login />}</Route>
       <Route path="/register">
-        {user ? <Redirect to="/" /> : <Register />}
+        {(user || reg) ? <Redirect to="/" /> : <Register />}
       </Route>
     </Switch>
     

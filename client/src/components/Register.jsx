@@ -3,12 +3,6 @@ import { useSelector , useDispatch } from 'react-redux'
 import { registerCall } from '../api/authCalls'
 import { useRef } from 'react'
 
-
-
-
-
-    
-
 function Register() {
     const loading = useSelector(state=>state.register.loading)
     const dispatch = useDispatch()
@@ -35,12 +29,8 @@ function Register() {
     }
     return (
         <div className="login">
-            <div className="loginWrapper">
-                <div className="loginLeft">
-                    <h3 className="loginLogo">Facebook</h3>
-                    <span className="loginDesc">Connect with friends and the world around you on Facebook
-                    </span>
-                </div>
+            
+               
                 <div className="loginRight">
                     <form className="loginBox" onSubmit={onSubmit}>
                         <input type="text" className="loginInput" placeholder="Username" ref={username} required/>
@@ -49,14 +39,13 @@ function Register() {
                         <input type="email" className="loginInput" placeholder="Email" ref={email} required/>
                         <input type="password" className="loginInput" placeholder="Password" ref={password} required/>
                         <input type="password" className="loginInput" placeholder="Password Again" ref={passwordAgain} required/>
-                        <button type="submit" className="loginButton">Sign Up</button>
-                        <span className="loginForgot">Forgot Password?</span>
-                       
+                        <button type="submit" className="loginButton">{loading?"loading":"Sign Up"}</button>
+                        <span className="loginForgot">Have an account already?</span>
                         <button className="loginRegisterButton">Log into Account</button>
                         
                     </form>
                 </div>
-            </div>
+           
         </div>
     )
 }

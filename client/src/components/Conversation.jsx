@@ -1,32 +1,30 @@
 import '../styles/conversation.css'
-import { useSelector , useDispatch } from 'react-redux'
-import { useEffect , useState } from 'react'
-import { getConvCall } from '../api/apiCalls'
+import { capitalize } from '../utils'
 import { format } from 'timeago.js'
 
 
 
   function Conversation({conv}) {
-    const user = useSelector(state=>state.user.login.info)
-    const convName = `${conv.firstName} ${conv.lastName}`
+    const convName = `${capitalize(conv.firstName)} ${capitalize(conv.lastName)}`
     const convImg = conv.convImg
     const seen = conv?.lastMessage?.seen;
     const time = conv?.lastMessage?.createdAt
   
     
       return (
-        <div className="chatlist__item">
+        <div  className="conversation">
           <div className="avatar">
         <div className="avatar-img">
           <img src={convImg} alt="" />
         </div>
         <span className={`isOnline active`}></span>
       </div>
-      <div className="userMeta">
-          <p>{convName}</p>
+      <div className="info">
+          <p className="name">{convName}</p>
+          <p className={seen?"seen":"unseen"}>{conv?.lastMessage?.text.split("").length < 10 ? (conv.lastMessage.text) : "..." }</p>
           <span >{format(time)}</span>
         </div>
-        <span className={seen?"seen":"unseen"}>{conv?.lastMessage?.text}</span>
+        
     </div>
       )
   }

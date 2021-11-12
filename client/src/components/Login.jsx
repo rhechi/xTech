@@ -6,12 +6,9 @@ import { socket } from '../socket'
 
 
 function Login() {
-    const error = useSelector(state=>state.user.login.info?.error)
     const user = useSelector(state=>state.user.login.info?.id)
-    
-   // console.log("init id",id)
+    const error = useSelector(state=>state.user.login.info?.error) 
     const loading = useSelector(state=>state.user.login.loading)
-    //console.log("init, loading",loading)
     const email = useRef()
     const password = useRef()
     const dispatch = useDispatch()
@@ -20,21 +17,15 @@ function Login() {
     const onSubmit = async (e) =>{
         e.preventDefault()
         const creds = {email: email.current.value, password:password.current.value}
-       // console.log(loginCall)
-       const user =  await loginCall(creds, dispatch)
-    //    socket.emit("init", user.id)
+        await loginCall(creds, dispatch)
+     
     }
    
     if(error){console.log("error: ",error)}
     return (
         <div className="login">
-        <div className="loginWrapper">
-            <div className="loginLeft">
-                <h3 className="loginLogo">Facebook</h3>
-                <span className="loginDesc">Connect with friends and the world around you on Facebook
-                </span>
-            </div>
-            <div className="loginRight" >
+        
+            
                 <form className="loginBox" onSubmit={onSubmit}>
                 <input type="email" 
                     className="loginInput" 
@@ -54,8 +45,8 @@ function Login() {
                 <button className="loginRegisterButton" disabled={loading}>{loading?"loading":"Create a New Account"}</button>
                     
                 </form>
-            </div>
-        </div>
+            
+        
         
     </div>
     )

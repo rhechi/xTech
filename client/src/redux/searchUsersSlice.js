@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 export const searchUsersSlice = createSlice({
     name: "search",
     initialState:{
-        current: [{profilePicture:"https://api.multiavatar.com/Starcrasher.png"}],
+        current: [],
         loading:false,
         error: null,
     },

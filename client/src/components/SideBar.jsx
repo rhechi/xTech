@@ -26,8 +26,8 @@ const SideBar = () => {
           </div>
         </div>
         
-           { length<1? <span>No users</span>: users.map(user=>(
-            <SideItem user={user} />
+           { loading?<span>loading</span> : length<1? <span>No users</span>: users.map(user=>(
+            <SideItem key={user.id} user={user} />
            
             ) ) }
          

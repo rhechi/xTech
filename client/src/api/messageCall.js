@@ -5,21 +5,17 @@ import{ socket } from '../socket'
 export const getMessagesCall = async (payload,dispatch) =>{
     dispatch(getMessagesStart())
     try {
-        //make request to get messages where convId is the same as payload is the convId
         const res = await axios.get(`/message/${payload.convId}`)
         const messages = res.data
-        //after resposnse from server
-        messages.forEach(m=>{ if(payload.user.id == m.sender){ m.own = true }else{ m.own = false } })
         dispatch(getMessagesSuccess({messages}))
     } catch (error) {
         dispatch(getMessagesFail({error}))
     }
 }
-
 export const sendMessageCall = async (payload,dispatch) =>{
     const message = payload.message
     try {
-        const res = await axios.post("/message",message);
+        await axios.post("/message",message);
         socket.emit("sendMessage",{
             message,
             recieverId: payload.friendId,
