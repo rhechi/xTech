@@ -56,6 +56,7 @@ export const logoutCall = async (user,dispatch) =>{
     const refreshToken = user.refreshToken
     dispatch(logout())
     window.localStorage.clear()
+    window.location.reload()
     const res = await axios.post('/auth/logout',{refreshToken},{
         headers:{
             auth : `Bearer ${accessToken}`
