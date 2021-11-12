@@ -1,4 +1,13 @@
+import { capitalize } from '../utils'
+import { addConversation } from '../api/convCalls'
+import { useSelector, useDispatch } from 'react-redux'
 export const SideItem = ({user}) => {
+    const dispatch = useDispatch()
+    const me = useSelector(state => state.user.login.info?.id)
+    const convs = useSelector(state=>state.conv.current)
+    const onClick = async() =>{
+        await addConversation({convs,senderId: me,recieverId: user.id},dispatch)
+    }
     return (
         
         <div className="chatlist__item">
@@ -9,8 +18,8 @@ export const SideItem = ({user}) => {
         </div>
 
        </div>
-       <span>Name Here</span>
-       <button className="btn" onClick={()=>{console.log("clicked")}}>
+       <span>{`${capitalize(user.firstName)} ${capitalize(user.lastName)}`}</span>
+       <button className="btn" onClick={onClick}>
   <i className="fa fa-plus"></i>
 </button>
  

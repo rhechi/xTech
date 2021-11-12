@@ -7,7 +7,7 @@ const { getConvsDB , setConvDB, getLastMessageDB } = require('../utils/dbHandler
 //new conv---------add validation and verify
 router.post("/",async(req,res) =>{
     const newConv = {
-        members:[req.body.senderID,req.body.recieverID]
+        members:[req.body.senderId,req.body.recieverId]
     }
     try {
         const savedConv = await setConvDB(newConv)

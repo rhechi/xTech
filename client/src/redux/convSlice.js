@@ -31,10 +31,13 @@ export const convSlice = createSlice({
             }
             state.current = [upConv,...state.current.filter(e=>e.convId !== action.payload.conversationID)]
         },
+        addConv: (state,action) => {
+            state.current = [action.payload,...state.current]
+        },
         setCurrentConv: (state,action) =>{
             state.active = action.payload
         }
     }
 })
-export const { getConvsStart , getConvsSuccess , getConvsFail , updateConv ,setCurrentConv} = convSlice.actions
+export const { getConvsStart , getConvsSuccess , getConvsFail , updateConv,addConv ,setCurrentConv} = convSlice.actions
 export default convSlice.reducer

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { getConvsStart , getConvsSuccess , getConvsFail} from '../redux/convSlice'
+import { getConvsStart , getConvsSuccess , getConvsFail,addConv} from '../redux/convSlice'
 
 const getConvs = async (payload) => {
     try {
@@ -44,6 +44,21 @@ export const getAllConvsCall = async (payload,dispatch) =>{
     } catch (error) {
         console.log(error)
        dispatch(getConvsFail({error}))
+    }
+}
+
+//testing prototype
+export const addConversation = async (payload,dispatch) =>{
+    const convs = payload.convs
+    const senderId = payload.senderId
+    const recieverId = payload.recieverId
+    if(convs.filter(c=>c.friendId == recieverId)){
+        try {
+            const res = await axios.post("/conv",{senderId,recieverId})
+            dispatch(addConv(res.data))
+        } catch (error) {
+            console.log(error)
+        }
     }
 }
 
