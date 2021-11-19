@@ -8,6 +8,9 @@ export const userSlice = createSlice({
                 id: window.localStorage.userId,
                 accessToken: window.localStorage.accessToken,
                 refreshToken: window.localStorage.refreshToken,
+                firstName: window.localStorage.firstName,
+                lastName: window.localStorage.lastName,
+                profilePicture: window.localStorage.profilePicture,
             },
         
             loading: false,

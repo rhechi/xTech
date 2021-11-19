@@ -18,7 +18,7 @@
     border: none;
     padding: 15px;
     outline: none;
-    width: calc(100% - 45px);
+    width: calc(100% - 70px);
     padding-right: 0;
   }
   .search-btn {
@@ -36,4 +36,6 @@
     max-height: calc(100vh - calc(100vh / 2));
   }
   
-  
+  .btn-out:hover{
+    background-color: red;
+  }

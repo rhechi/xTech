@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { socket } from '../socket'
 import { getConvsStart , getConvsSuccess , getConvsFail,addConv} from '../redux/convSlice'
 
 const getConvs = async (payload) => {
@@ -56,14 +57,21 @@ export const addConversation = async (payload,dispatch) =>{
     if(convs.filter(c=>c.friendId == recieverId).length == 0){
         try {
             const res = await axios.post("/conv",{senderId,recieverId})
+            console.log(res.data)
             const newConv = {
-                convId: res.id,
+                convId: res.data._id,
                 friendId: recieverId,
                 firstName: user.firstName,
                 convImg: user.profilePicture,
                 lastName: user.lastName,
-                lastMessage: {text:"new new"} 
+                lastMessage: {text:"New Contact"} 
             }
+            socket.emit("addConv",{
+                convId: res.id,
+                senderId,
+                recieverId,
+                
+            })
             dispatch(addConv(newConv))
         } catch (error) {
             console.log(error)

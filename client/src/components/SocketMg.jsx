@@ -3,6 +3,7 @@ import { useDispatch , useSelector } from "react-redux"
 import {  updateConv } from "../redux/convSlice"
 import { addMessage } from '../redux/messageSlice'
 import { socket } from '../socket'
+import { getAllConvsCall } from '../api/convCalls'
 
 
 
@@ -21,16 +22,27 @@ export const SocketMg = () => {
        
 
       },[])
+      useEffect( ()=>{
+        const getConvs = async() =>{
+            await getAllConvsCall(user, dispatch)
+        }
+        
+         socket.on("getConv", ()=>{
+             console.log("got a conv")
+            getConvs()
+         })
+
+      },[socket] )
     useEffect(()=>{
         socket.on("getMessage",message=>{
-          
+            
             dispatch(updateConv(message))
          
             if(activeConv?.convId === message.conversationID){
                 dispatch(addMessage(message))
             }
-        // })
-
+         })
+     
         // socket.on("seen", convId=>{
         //     
         //     })
@@ -38,7 +50,7 @@ export const SocketMg = () => {
         //     if(activeConv?.convId == convId){
         //         dispatch(seeMessage())
         //     }
-         })
+        // })
     },[activeConv])
     return (
         <></>

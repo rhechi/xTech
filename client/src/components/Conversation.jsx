@@ -21,7 +21,7 @@ import { format } from 'timeago.js'
       </div>
       <div className="info">
           <p className="name">{convName}</p>
-          <p className={seen?"seen":"unseen"}>{conv?.lastMessage?.text?.split("").length < 10 ? (conv.lastMessage.text) : "..." }</p>
+          <p className={seen?"seen":"unseen"}>{conv?.lastMessage?.text?.split("").length < 20 ? (conv.lastMessage.text) : "..." }</p>
           <span >{format(time)}</span>
         </div>
         

@@ -13,6 +13,9 @@ export const loginCall = async (payload, dispatch) =>{
              window.localStorage.setItem("userId", res.data.id)
             window.localStorage.setItem("accessToken", res.data.accessToken)
              window.localStorage.setItem("refreshToken", res.data.refreshToken)
+             window.localStorage.setItem("firstName", res.data.firstName)
+             window.localStorage.setItem("lastName", res.data.lastName)
+             window.localStorage.setItem("profilePicture", res.data.profilePicture)
              return res.data
         }
     } catch (error) {
@@ -31,6 +34,7 @@ export const refresh = async(user,dispatch) =>{
              window.localStorage.setItem("userId", res.data.id)
             window.localStorage.setItem("accessToken", res.data.accessToken)
              window.localStorage.setItem("refreshToken", res.data.refreshToken)
+             
              return res.data
         }
     } catch (error) {
@@ -42,7 +46,11 @@ export const refresh = async(user,dispatch) =>{
 export const registerCall = async (payload,dispatch) =>{
     dispatch(registerStart())
     try {
-       await axios.post('/auth/register',payload)
+       const res = await axios.post('/auth/register',payload)
+      const user= res.data
+      if(user.error){throw user.error}
+          console.log(user)
+          await loginCall({email: payload.email, password:payload.password},dispatch)
       
        dispatch(registerSuccess(true))
     } catch (error) {

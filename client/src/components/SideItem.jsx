@@ -1,6 +1,7 @@
 import { capitalize } from '../utils'
 import { addConversation } from '../api/convCalls'
 import { useSelector, useDispatch } from 'react-redux'
+import { socket } from '../socket'
 export const SideItem = ({user}) => {
     const dispatch = useDispatch()
     const me = useSelector(state => state.user.login.info?.id)
@@ -20,8 +21,8 @@ export const SideItem = ({user}) => {
        </div>
        <span>{`${capitalize(user.firstName)} ${capitalize(user.lastName)}`}</span>
        <button className="btn" onClick={onClick}>
-  <i className="fa fa-plus"></i>
-</button>
+        <i className="fa fa-plus"></i>
+        </button>
  
            </div>
     )

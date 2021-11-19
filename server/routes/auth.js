@@ -96,7 +96,14 @@ router.post("/login", async (req,res) =>{
             const accessToken = accessTokenGen(user)
             const refreshToken = refreshTokenGen(user)
             const addedRefreshToken = await addTokenDB(refreshToken)
-            res.status(200).json({id:user.id,accessToken, refreshToken})
+            res.status(200).json(
+                {id:user.id,
+                    accessToken, 
+                    refreshToken,
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    profilePicture: user.profilePicture,
+                })
         }else res.status(403).json("email or password incorrent")
     } catch (err) {
      res.status(500).json(err) 

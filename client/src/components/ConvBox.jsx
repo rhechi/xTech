@@ -1,5 +1,5 @@
 import '../styles/convbox.css'
-
+import { capitalize } from '../utils'
 import { useSelector , useDispatch} from 'react-redux'
 import { useEffect } from 'react'
 import Conversation from "./Conversation"
@@ -26,9 +26,22 @@ function ConvBox() {
     },[])   
     return (
         <div  className="convBox">
-           <button className="btn" onClick={onClick}>
+
+      <div className="conversation">
+        <div className="avatar">
+        <div className="avatar-img">
+        <img src={user.profilePicture} alt="" />
+        
+        </div>
+
+       </div>
+       <span>{`${capitalize(user.firstName)} ${capitalize(user.lastName)}`}</span>
+       <button className="btn btn-out" onClick={onClick}>
           <i className="fa fa-sign-out-alt"></i> 
             </button>
+ 
+           </div>
+         
         <div className="convHeader">
           <h2>Chats</h2>
           <button className="btn-nobg">
@@ -43,7 +56,7 @@ function ConvBox() {
           </div>
         <div className="conversationsContainer">
             {
-                convs.length>0 ? convs.map(c=>(
+                convs?.length>0 ? convs?.map(c=>(
                     <div key={c.convId} onClick={()=>{
                       dispatch(setCurrentConv(c))
                       

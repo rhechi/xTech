@@ -21,11 +21,11 @@ function ChatFrom() {
         e.preventDefault()
         if(newMessage && newMessage !== ""){
         const message ={
-            conversationID: currentChat?.convId,
+            conversationID: currentChat.convId,
             sender: user?.id,
             text: newMessage
             }
-            
+            console.log(message)
              dispatch(updateConv(message))
             await sendMessageCall({user,message,friendId:currentChat.friendId},dispatch)
             setNewMessage("")

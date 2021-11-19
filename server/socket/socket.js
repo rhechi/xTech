@@ -52,6 +52,20 @@ io.on('connection', (socket) => {
             })
         }
     })
+    //add a new contact/conversation
+    socket.on("addConv", async({convId,senderId,recieverId})=>{
+        try {
+            const recieverSockets = await getSockets(recieverId)
+            if(recieverSockets && !recieverSockets.error && recieverSockets.length > 0){
+                recieverSockets.forEach(s=>{
+                    io.to(s.socketId).emit("getConv")
+                })
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    })
+
     //seen
     socket.on("seen", async({id,convId,friendId})=>{
         try {

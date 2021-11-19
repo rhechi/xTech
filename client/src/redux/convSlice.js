@@ -21,6 +21,7 @@ export const convSlice = createSlice({
         },
         updateConv : (state,action)=>{
             const convToUpdate = state.current.filter(e=>e.convId === action.payload.conversationID)[0]
+            if(!convToUpdate){return false}else{
             const upConv = {
                 convId: convToUpdate.convId,
                 friendId: convToUpdate.friendId,
@@ -30,8 +31,10 @@ export const convSlice = createSlice({
                 lastMessage: action.payload
             }
             state.current = [upConv,...state.current.filter(e=>e.convId !== action.payload.conversationID)]
+        }
         },
         addConv: (state,action) => {
+            console.log(action.payload)
             state.current = [action.payload,...state.current]
         },
         setCurrentConv: (state,action) =>{
